@@ -31,3 +31,42 @@
     beq $t0, 1, somar 
     beq $t0, 2, subtrair 
     beq $t0, 3, mulplicar 
+    beq $t0, 4, dividir 
+    beq $t0, 0, sair 
+
+    somar:
+    li $v0, 4     # Imprimir uma string 
+    la $a0, n1    # Carrega n1 no registrador $a0
+    syscall
+    li $v0, 5     # Lê um número inteiro 
+    syscall
+    move $t1, $v0
+
+# Pede o segundo número 
+    li $v0, 4     # imprimi uma string 
+    la $a0, n2    # Carrega n2
+    syscall
+    li $v0, 5 
+    syscall
+    move $t2, $v0      # Salva o número digitado em T2
+    add $t3, $t1, $t2  # SOMA: $t3 = $t1 + $t2
+
+# Mostra o resultado 
+
+    li $v0, 4       # Imprimir uma string 
+    la $a0, r 
+    syscall
+    li $v0, 1
+    la $a0, ($t3)
+    syscall
+    pula_linha
+    j principal 
+
+
+    subtrair:
+    li $v0, 4 
+    la $a0, n1
+    syscall
+    li $v0, 5
+    syscall
+    
