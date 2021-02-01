@@ -30,7 +30,7 @@
 # Condições 
     beq $t0, 1, somar 
     beq $t0, 2, subtrair 
-    beq $t0, 3, mulplicar 
+    beq $t0, 3, multiplicar 
     beq $t0, 4, dividir 
     beq $t0, 0, sair 
 
@@ -63,10 +63,86 @@
     j principal 
 
 
-    subtrair:
+    subtrair:       # Bloco Subtrair 
+    # Pede o primeiro número.
     li $v0, 4 
     la $a0, n1
     syscall
     li $v0, 5
     syscall
+    move $t1,$v0
+
+    # Pede segundo número 
+    li $v0, 4 
+    la $a0, n2
+    syscall
+    li $v0, 5 
+    syscall
+    move $t2, $v0
+    sub $t3,$t1,$t2     #SUBTRAI: $t3 = $t1 - $t2
+
+    # Mostra o resultado na tela 
+    li $v0, 4
+    la $a0, r
+    syscall
+    li $v0, 1
+    la $a0, ($t3)
+    syscall
+    pula_linha 
+    j principal
+
+    # Bloco Multiplicar 
+    multiplicar:
+    li $v0, 4
+    la $a0, n1
+    syscall
+    li $v0, 5 
+    syscall
+    move $t1, $v0
+
+    # Pede o segundo número 
+
+    li $v0, 4
+    la $a0, n2
+    syscall
+    li $v0, 5
+    syscall
+    move $t2, $v0
+    mul $t3, $t1, $t2
+
+    # Mostra o resultado na tela 
+    li $v0, 4
+    la $a0, r
+    syscall
+    li $v0, 1
+    la $a0, ($t3)
+    syscall
+    pula_linha 
+    j principal 
+
+    dividir:
+    # Pede o primeiro  número 
+    li $v0, 4
+    la $a0, n1
+    syscall
+    li $v0, 5
+    syscall
+    move $t2, $v0
+    div $t3, $t1, $t2
+
+    # Mostra o resultado na tela 
+    li $v0, 4
+    la $a0, r
+    syscall
+    li $v0, 1
+    la $a0, ($t3)
+    syscall
+    pula_linha 
+    j principal
+
+    sair:
+    li $v0, 10 
+    syscall
     
+
+
